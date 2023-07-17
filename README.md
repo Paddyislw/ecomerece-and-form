@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## `Pages`
 
-/Cart - Cart Page \
-/products/:id - Product Page \
-/save - Favorites item page \
-/setting - Form Page \
+**/Cart** - Cart Page \
+**/products/:id** - Product Page \
+**/save** - Favorites item page \
+**/setting** - Form Page 
 
 ## Available Scripts
 
