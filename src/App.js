@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Provider, useDispatch } from "react-redux";
+import { store } from "./redux/store";
+import { Route, Routes } from "react-router";
+import Homepage from "./pages/Homepage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
+import FavoriteItemsPage from "./pages/FavoriteItemsPage";
+import { fetchAllProducts } from "./redux/productSlice";
+import SettingsPage from "./pages/SettingsPage";
+import { ToastContainer } from "react-toastify";
 
-function App() {
+const App = () => {
+  const [currentTab, setCurrentTab] = useState("all");
+  const [sort, setSort] = useState("asc");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllProducts({ currentTab: currentTab, sort: sort }));
+  }, [currentTab, sort]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Homepage
+              setCurrentTab={setCurrentTab}
+              currentTab={currentTab}
+              setSort={setSort}
+              sort={sort}
+            />
+          }
+        />
+        <Route path="/products/:id" element={<ProductPage />} />
+        <Route path="/Cart" element={<CartPage />} />
+        <Route path="/save" element={<FavoriteItemsPage />} />
+        <Route path="/setting" element={<SettingsPage />} />
+      </Routes>
+      
     </div>
   );
-}
+};
 
 export default App;
